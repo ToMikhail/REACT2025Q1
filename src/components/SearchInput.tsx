@@ -21,7 +21,7 @@ class SearchInput extends Component<unknown, SearchInputState> {
   // Handle form submission
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    alert(`Searching for: ${this.state.query}`);
+    console.log('submit:', this.state.query);
   };
 
   render() {
@@ -34,6 +34,7 @@ class SearchInput extends Component<unknown, SearchInputState> {
           onChange={this.handleChange}
         />
         <Button type="submit" name="Search" />
+        <pre>{this.state.query}</pre>
       </form>
     );
   }

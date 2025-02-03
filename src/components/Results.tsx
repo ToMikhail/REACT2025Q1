@@ -1,9 +1,14 @@
 import React from 'react';
 
+interface Response {
+  count: number;
+  next: string;
+  previous: null;
+  results: User[];
+}
 interface User {
-  id: number;
   name: string;
-  email: string;
+  url: string;
 }
 
 interface State {
@@ -30,7 +35,7 @@ class Results extends React.Component<unknown, State> {
         }
         return response.json();
       })
-      .then((data: User[]) => {
+      .then((data: Response) => {
         console.log(data);
         this.setState({ users: data.results, loading: false });
       })
@@ -51,8 +56,8 @@ class Results extends React.Component<unknown, State> {
         <h2>User List</h2>
         <ul>
           {users.map((user) => (
-            <li key={user.id}>
-              {user.name} - {user.email}
+            <li key={user.name}>
+              {user.name} - {user.url}
             </li>
           ))}
         </ul>
