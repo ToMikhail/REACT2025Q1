@@ -1,11 +1,15 @@
-import { Component, ChangeEvent, FormEvent } from 'react';
+import { Component, ChangeEvent, FormEvent, ContextType } from 'react';
 import Button from './Button';
+import { SearchContext } from '../context/SearchContext';
 
 interface SearchInputState {
   query: string;
 }
 
 class SearchInput extends Component<unknown, SearchInputState> {
+  static contextType = SearchContext;
+  declare context: ContextType<typeof SearchContext>;
+
   constructor(props: unknown) {
     super(props);
     this.state = {
@@ -18,9 +22,15 @@ class SearchInput extends Component<unknown, SearchInputState> {
     this.setState({ query: event.target.value });
   };
 
+  // // Handle input change
+  // handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   this.setState({ query: event.target.value });
+  // };
+
   // Handle form submission
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    this.context?.updateSearch(this.state.query);
     console.log('submit:', this.state.query);
   };
 
@@ -28,6 +38,7 @@ class SearchInput extends Component<unknown, SearchInputState> {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
+          style={{ margin: '1rem' }}
           type="text"
           placeholder="Search..."
           value={this.state.query}

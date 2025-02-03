@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ContextType } from 'react';
+import { SearchContext } from '../context/SearchContext';
 
 interface Response {
   count: number;
@@ -18,6 +19,9 @@ interface State {
 }
 
 class Results extends React.Component<unknown, State> {
+  static contextType = SearchContext;
+  declare context: ContextType<typeof SearchContext>;
+
   constructor(props: unknown) {
     super(props);
     this.state = {
@@ -47,9 +51,18 @@ class Results extends React.Component<unknown, State> {
 
   render() {
     const { users, loading, error } = this.state;
+    const searchQuery: string = this.context?.searchQuery || '';
+    console.log('searchQuery: ', searchQuery);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
+    if (searchQuery) {
+      const user: undefined | User = users.find(
+        (user: User): undefined | boolean => user.name === searchQuery.trim()
+      );
+      if (user) return <p>{user.name}</p>;
+      else return <p>User not found.</p>;
+    }
 
     return (
       <div>
@@ -61,6 +74,7 @@ class Results extends React.Component<unknown, State> {
             </li>
           ))}
         </ul>
+        <pre>{searchQuery}</pre>
       </div>
     );
   }
