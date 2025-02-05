@@ -20,17 +20,23 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // this.setState({
+    //   hasError: true,
+    //   errorMessage: error.message,
+    // });
     console.error('Error Boundary Caught an Error:', error, errorInfo);
   }
 
   render() {
+    console.log('ErrorBoundary works');
     if (this.state.hasError) {
+      console.log('ErrorBoundary error');
       return (
         <div
           style={{
             padding: '20px',
-            border: '1px solid red',
-            background: '#ffe6e6',
+            border: '1px solid "darkgrey"',
+            background: 'grey',
           }}
         >
           <h2>Something went wrong!</h2>

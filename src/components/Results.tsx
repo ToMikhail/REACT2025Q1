@@ -52,7 +52,6 @@ class Results extends React.Component<unknown, State> {
   render() {
     const { users, loading, error } = this.state;
     const searchQuery: string = this.context?.searchQuery || '';
-    console.log('searchQuery: ', searchQuery);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -61,20 +60,25 @@ class Results extends React.Component<unknown, State> {
         (user: User): undefined | boolean => user.name === searchQuery.trim()
       );
       if (user) return <p>{user.name}</p>;
-      else return <p>User not found.</p>;
+      else return <p>Pokemon not found.</p>;
     }
 
     return (
       <div>
-        <h2>User List</h2>
+        <h2>Poke List</h2>
         <ul>
           {users.map((user) => (
-            <li key={user.name}>
-              {user.name} - {user.url}
+            <li
+              key={user.name}
+              style={{ marginBottom: '1rem', borderBottom: 'solid #FFF 1px' }}
+            >
+              <span>{user.name} </span>
+              <span style={{ fontSize: '12px', fontStyle: 'italic' }}>
+                more details &rarr;
+              </span>
             </li>
           ))}
         </ul>
-        <pre>{searchQuery}</pre>
       </div>
     );
   }
