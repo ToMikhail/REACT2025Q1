@@ -1,13 +1,13 @@
-import { Component, ChangeEvent, FormEvent, ContextType } from 'react';
+import { Component, ChangeEvent, FormEvent, ContextType, Context } from 'react';
 import Button from './Button';
-import { SearchContext } from '../context/SearchContext';
+import { SearchContext, SearchContextI } from '../context/SearchContext';
 
 interface SearchInputState {
   query: string;
 }
 
 class SearchInput extends Component<unknown, SearchInputState> {
-  static contextType = SearchContext;
+  static contextType: Context<SearchContextI | undefined> = SearchContext;
   declare context: ContextType<typeof SearchContext>;
 
   constructor(props: unknown) {

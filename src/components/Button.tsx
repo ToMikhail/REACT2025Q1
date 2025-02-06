@@ -2,6 +2,7 @@ import React from 'react';
 
 interface PropsI {
   name: string;
+  type?: string;
 }
 
 class Button extends React.Component<PropsI> {

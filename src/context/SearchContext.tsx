@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactNode, createContext } from 'react';
 
-interface SearchContextI {
+export interface SearchContextI {
   searchQuery: string;
   updateSearch: (query: string) => void;
 }
